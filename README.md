@@ -1,11 +1,15 @@
 # MySDL
 Simple SDL Project in Visual Studio C++
 
+- Klicken Sie oben auf den grünen **Code**-Button und wählen Sie *Download Zip*.
+
+- Entpacken Sie den **.zip**-Ordner auf Ihrem PC.
+
 - Starten Sie Visual Studio (VS) und öffnen Sie nach Klick auf
   *Projekt oder Projektmappe öffnen*
-  die Projektbeschreibungsdatei **MySDL.sln** (siehe entpackter .zip-Ordner).
+  die Projektbeschreibungsdatei **MySDL.sln**.
 
-- Öffnen Sie aus dem Projektmappen-Explorer (rechts) die Quelldatei **MySDL.cpp**.
+- Öffnen Sie aus dem Projektmappen-Explorer die Quelldatei **MySDL.cpp**.
 
 - Achten Sie darauf, dass in der VS-Menüleiste die Konfiguration **Debug x86** ausgewählt ist.
 
