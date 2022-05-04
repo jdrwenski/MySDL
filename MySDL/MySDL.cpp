@@ -6,18 +6,38 @@
 
 SDL_Window* window = 0;
 SDL_Renderer* render = 0;
+SDL_Rect rect;
 
 int main(int argc, char* argv[])
 {
     SDL_Init(SDL_INIT_EVERYTHING);
-    window = SDL_CreateWindow("Demo",0,0,640,480, SDL_WINDOW_FULLSCREEN);
+    window = SDL_CreateWindow("Demo",100,100,640,480, SDL_WINDOW_ALWAYS_ON_TOP);
     render = SDL_CreateRenderer(window, -1, 0);
 
-    SDL_SetRenderDrawColor(render, 100, 50, 222, 255);
-    SDL_RenderClear(render);
-    SDL_RenderPresent(render);
+    /* Rechteck initialisieren */
+    rect.x = 50;
+    rect.y = 100;
+    rect.w = 80;
+    rect.h = 50;
 
-    SDL_Delay(20000);
+    /* Schleife notfalls mittels Strg + Alt + Entf stoppen */
+    while (rect.x < 400) {
+        /* Hintergrund zeichnen */
+        SDL_SetRenderDrawColor(render, 100, 50, 222, 255);
+        SDL_RenderClear(render);
+
+        /* Rechteck zeichnen */
+        SDL_SetRenderDrawColor(render, 200, 200, 0, 255);
+        SDL_RenderFillRect(render, &rect);
+
+        /* Rechteck bewegen */
+        rect.x += 2;
+
+        /* Monitordarstellung */
+        SDL_RenderPresent(render);
+        SDL_Delay(24);
+    }
+
     SDL_Quit();
 
     std::cout << "Hello World!\n";
