@@ -7,31 +7,52 @@
 SDL_Window* window = 0;
 SDL_Renderer* render = 0;
 SDL_Rect rect;
+SDL_Rect target;
 
 int main(int argc, char* argv[])
 {
     SDL_Init(SDL_INIT_EVERYTHING);
-    window = SDL_CreateWindow("Demo",100,100,640,480, SDL_WINDOW_ALWAYS_ON_TOP);
+    window = SDL_CreateWindow("Demo",300,200,640,480, SDL_WINDOW_ALWAYS_ON_TOP);
     render = SDL_CreateRenderer(window, -1, 0);
 
     /* Rechteck initialisieren */
     rect.x = 50;
-    rect.y = 100;
+    rect.y = 130;
     rect.w = 80;
     rect.h = 50;
 
+    /* Ziel initialisieren */
+    target.x = 300;
+    target.y = 100;
+    target.w = 50;
+    target.h = 50;
+
     /* Schleife notfalls mittels Strg + Alt + Entf stoppen */
-    while (rect.x < 400) {
+    while (rect.x < 500) {
         /* Hintergrund zeichnen */
-        SDL_SetRenderDrawColor(render, 100, 50, 222, 255);
+        SDL_SetRenderDrawColor(render, 150, 150, 222, 255);
         SDL_RenderClear(render);
 
-        /* Rechteck zeichnen */
+        /* Rechtecke zeichnen */
         SDL_SetRenderDrawColor(render, 200, 200, 0, 255);
         SDL_RenderFillRect(render, &rect);
+        SDL_SetRenderDrawColor(render, 250, 0, 0, 255);
+        SDL_RenderFillRect(render, &target);
 
         /* Rechteck bewegen */
-        rect.x += 2;
+        rect.x += 1;
+
+        /* Kollisionsabfrage */
+        if (
+            ((target.x >= rect.x && target.x <= rect.x + rect.w) ||
+            (rect.x >= target.x && rect.x <= target.x + target.w))
+            &&
+            ((target.y >= rect.y && target.y <= rect.y + rect.h) ||
+            (rect.y >= target.y && rect.y <= target.y + target.h))
+            ) {
+            target.x = -1000;
+        }
+
 
         /* Monitordarstellung */
         SDL_RenderPresent(render);
