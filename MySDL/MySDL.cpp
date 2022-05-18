@@ -9,6 +9,21 @@ SDL_Renderer* render = 0;
 SDL_Rect rect;
 SDL_Rect target;
 
+bool checkCollision(SDL_Rect& rect, SDL_Rect& target) {
+    if (
+        ((target.x >= rect.x && target.x <= rect.x + rect.w) ||
+            (rect.x >= target.x && rect.x <= target.x + target.w))
+        &&
+        ((target.y >= rect.y && target.y <= rect.y + rect.h) ||
+            (rect.y >= target.y && rect.y <= target.y + target.h))
+        ) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 int main(int argc, char* argv[])
 {
     SDL_Init(SDL_INIT_EVERYTHING);
@@ -43,13 +58,7 @@ int main(int argc, char* argv[])
         rect.x += 1;
 
         /* Kollisionsabfrage */
-        if (
-            ((target.x >= rect.x && target.x <= rect.x + rect.w) ||
-            (rect.x >= target.x && rect.x <= target.x + target.w))
-            &&
-            ((target.y >= rect.y && target.y <= rect.y + rect.h) ||
-            (rect.y >= target.y && rect.y <= target.y + target.h))
-            ) {
+        if ( checkCollision(rect,target) ) {
             target.x = -1000;
         }
 
