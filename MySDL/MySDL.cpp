@@ -27,7 +27,7 @@ bool checkCollision(SDL_Rect& rect, SDL_Rect& target) {
 int main(int argc, char* argv[])
 {
     SDL_Init(SDL_INIT_EVERYTHING);
-    window = SDL_CreateWindow("Demo",300,200,640,480, SDL_WINDOW_ALWAYS_ON_TOP);
+    window = SDL_CreateWindow("Demo",1000,200,640,480, SDL_WINDOW_ALWAYS_ON_TOP);
     render = SDL_CreateRenderer(window, -1, 0);
 
     /* Rechteck initialisieren */
@@ -41,6 +41,9 @@ int main(int argc, char* argv[])
     target.y = 100;
     target.w = 50;
     target.h = 50;
+
+    /* Deklaration des Event-Objekts */
+    SDL_Event event;
 
     /* Schleife notfalls mittels Strg + Alt + Entf stoppen */
     while (rect.x < 500) {
@@ -62,6 +65,19 @@ int main(int argc, char* argv[])
             target.x = -1000;
         }
 
+        /* Variablen für Maus-Koordinaten */
+        int mx, my;
+        /* alle Events seit dem letzten Delay abrufen */
+        while (SDL_PollEvent(&event)) {
+            /* Typ des Events prüfen */
+            if (event.type == SDL_MOUSEBUTTONDOWN) {
+                /* Maus-Position abrufen (call-by-reference) */
+                SDL_GetMouseState(&mx, &my);
+                target.x = mx;
+                target.y = my;
+                std::cout << mx << ", " << my << std::endl;
+            }
+        }
 
         /* Monitordarstellung */
         SDL_RenderPresent(render);
